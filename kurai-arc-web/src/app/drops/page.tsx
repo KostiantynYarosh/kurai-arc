@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
-import { api, formatPrice, APIProduct } from "@/services/api";
+import { api, formatPrice, APIProduct, getAvailableSizes } from "@/services/api";
 
 export default async function Drops() {
     const products = await api.getProducts();
@@ -46,6 +46,7 @@ export default async function Drops() {
                                     price={formatPrice(product.base_price)}
                                     image={product.images && product.images.length > 0 ? product.images[0].url : undefined}
                                     status={product.status as 'available' | 'archived'}
+                                    availableSizes={getAvailableSizes(product)}
                                 />
                             ))}
                         </div>

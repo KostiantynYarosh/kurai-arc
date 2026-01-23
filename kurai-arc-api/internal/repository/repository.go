@@ -58,7 +58,52 @@ func (r *Repository) GetProductBySlug(slug string) (*models.Product, error) {
 
 // Orders
 func (r *Repository) CreateOrder(order *models.Order) error {
-	return r.DB.Create(order).Error
+	return r.DB.Transaction(func(tx *gorm.DB) error {
+		// 1. Create the Order
+		if err := tx.Create(order).Error; err != nil {
+			return err
+		}
+
+		// 2. Decrement stock for each item
+		for _, item := range order.Items {
+			// Determine the column name based on size
+			var column string
+			switch item.Size {
+			case "XS":
+				column = "stock_xs"
+			case "S":
+				column = "stock_s"
+			case "M":
+				column = "stock_m"
+			case "L":
+				column = "stock_l"
+			case "XL":
+				column = "stock_xl"
+			case "XXL":
+				column = "stock_xxl"
+			case "OS":
+				column = "stock_os"
+			default:
+				// Skip if size is unknown (or handle error)
+				continue
+			}
+
+			// Decrease stock, ensuring it doesn't go below 0
+			// gorm.Expr creates a raw SQL expression
+			result := tx.Model(&models.Product{}).
+				Where("id = ? AND "+column+" >= ?", item.ProductID, item.Quantity).
+				Update(column, gorm.Expr(column+" - ?", item.Quantity))
+
+			if result.Error != nil {
+				return result.Error
+			}
+			if result.RowsAffected == 0 {
+				return fmt.Errorf("insufficient stock for product %d size %s", item.ProductID, item.Size)
+			}
+		}
+
+		return nil
+	})
 }
 
 func (r *Repository) CreateUser(user *models.User) error {

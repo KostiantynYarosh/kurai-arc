@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { products } from '@/data/products';
+import { api, APIProduct, formatPrice } from '@/services/api';
 
 interface SearchModalProps {
     isOpen: boolean;
@@ -12,21 +12,38 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     const [searchQuery, setSearchQuery] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState(products);
+    const [allProducts, setAllProducts] = useState<APIProduct[]>([]);
+    const [filteredProducts, setFilteredProducts] = useState<APIProduct[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsLoading(true);
+            api.getProducts()
+                .then(products => {
+                    // Sort alphabetically by name
+                    const sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
+                    setAllProducts(sortedProducts);
+                    setFilteredProducts(sortedProducts);
+                })
+                .catch(err => console.error("Search fetch error", err))
+                .finally(() => setIsLoading(false));
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         if (searchQuery.trim() === '') {
-            setFilteredProducts(products);
+            setFilteredProducts(allProducts);
         } else {
             const query = searchQuery.toLowerCase();
-            const filtered = products.filter(product =>
+            const filtered = allProducts.filter(product =>
                 product.name.toLowerCase().includes(query) ||
                 product.type.toLowerCase().includes(query) ||
-                product.collection.toLowerCase().includes(query)
+                (product.collection?.name || '').toLowerCase().includes(query)
             );
             setFilteredProducts(filtered);
         }
-    }, [searchQuery]);
+    }, [searchQuery, allProducts]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -90,9 +107,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                 >
                                     {/* Thumbnail */}
                                     <div className="w-12 h-12 bg-deep-black rounded border border-secondary-border overflow-hidden flex-shrink-0">
-                                        {product.image ? (
+                                        {product.images && product.images.length > 0 ? (
                                             <Image
-                                                src={product.image}
+                                                src={product.images[0].url}
                                                 alt={product.name}
                                                 width={48}
                                                 height={48}
@@ -117,7 +134,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                                     {/* Price */}
                                     <div className="text-sm text-accent-purple font-light">
-                                        {product.price}
+                                        {formatPrice(product.base_price)}
                                     </div>
                                 </Link>
                             ))}

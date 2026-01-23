@@ -62,7 +62,7 @@ export default function ProductView({ product }: ProductViewProps) {
                             {product.name}
                         </h1>
                         <div className="flex items-center gap-4">
-                            <span className={`text-2xl font-light ${isArchived ? 'text-secondary-gray decoration-line-through' : 'text-accent-purple'}`}>
+                            <span className={`text-2xl font-light ${isArchived ? 'text-secondary-gray decoration-line-through' : 'text-warm-white'}`}>
                                 {formatPrice(product.base_price)}
                             </span>
                             {isArchived && (
@@ -86,19 +86,31 @@ export default function ProductView({ product }: ProductViewProps) {
                                 <h3 className="text-xs text-secondary-gray tracking-widest uppercase mb-3">
                                     Sizes
                                 </h3>
-                                <div className="flex gap-3">
-                                    {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
-                                        <button
-                                            key={size}
-                                            onClick={() => setSelectedSize(size)}
-                                            className={`w-12 h-12 rounded border flex items-center justify-center text-xs transition-all cursor-pointer ${selectedSize === size
-                                                ? 'border-accent-purple bg-accent-purple/10 text-warm-white shadow-[0_0_15px_rgba(139,92,246,0.3)]'
-                                                : 'border-secondary-border text-secondary-gray hover:border-accent-purple hover:text-warm-white'
-                                                }`}
-                                        >
-                                            {size}
-                                        </button>
-                                    ))}
+                                <div className="flex gap-3 flex-wrap">
+                                    {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => {
+                                        const stockKey = `stock_${size.toLowerCase()}` as keyof APIProduct;
+                                        const stock = (product[stockKey] as number) || 0;
+                                        const isOutOfStock = stock === 0;
+
+                                        return (
+                                            <button
+                                                key={size}
+                                                onClick={() => !isOutOfStock && setSelectedSize(size)}
+                                                disabled={isOutOfStock}
+                                                className={`w-12 h-14 rounded border flex flex-col items-center justify-center text-xs transition-all ${isOutOfStock
+                                                    ? 'border-secondary-border/50 text-secondary-gray/50 cursor-default'
+                                                    : selectedSize === size
+                                                        ? 'border-accent-purple bg-accent-purple/10 text-warm-white shadow-[0_0_15px_rgba(139,92,246,0.3)] cursor-pointer'
+                                                        : 'border-secondary-border text-secondary-gray hover:border-accent-purple hover:text-warm-white cursor-pointer'
+                                                    }`}
+                                            >
+                                                <span className="font-medium">{size}</span>
+                                                <span className={`text-[12px] mt-0.5 ${isOutOfStock ? 'text-secondary-gray/50' : 'text-secondary-gray'}`}>
+                                                    {stock}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -117,7 +129,7 @@ export default function ProductView({ product }: ProductViewProps) {
 
                     <div className="mt-8 pt-8 border-t border-secondary-border space-y-4">
                         <div className="flex justify-between items-center text-xs text-secondary-gray/60">
-                            <span>Shipping calculated at checkout.</span>
+                            <span className="text-warm-white/40">Shipping calculated at checkout.</span>
                             <span className="text-warm-white/40">Ships in 2-4 business days.</span>
                         </div>
                     </div>

@@ -3,14 +3,14 @@ import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
 import MoodGrid from "@/components/MoodGrid";
 import Footer from "@/components/Footer";
-import { api, formatPrice } from "@/services/api";
+import { api, formatPrice, getAvailableSizes } from "@/services/api";
 
 import Link from "next/link";
 
 export default async function Home() {
   const allProducts = await api.getProducts();
-  // Sort by ID descending or created_at if available to show "latest"
-  const featuredProducts = allProducts.slice(0, 4);
+  // Sort by ID descending to show "latest" (newest IDs first)
+  const featuredProducts = [...allProducts].sort((a, b) => b.id - a.id).slice(0, 4);
 
   return (
     <main className="min-h-screen bg-deep-black font-sans selection:bg-accent-purple selection:text-warm-white">
@@ -39,6 +39,7 @@ export default async function Home() {
                 price={formatPrice(product.base_price)}
                 image={product.images && product.images.length > 0 ? product.images[0].url : undefined}
                 status={product.status as 'available' | 'archived'}
+                availableSizes={getAvailableSizes(product)}
               />
             ))}
           </div>

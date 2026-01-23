@@ -27,8 +27,8 @@ export interface APICollection {
 
 // Determines the correct API URL depending on the environment (Server vs Client)
 const API_URL = typeof window === 'undefined'
-    ? (process.env.INTERNAL_API_URL || 'http://localhost:8080/api') // Server-side (Docker internal)
-    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'); // Client-side (Browser)
+    ? (process.env.INTERNAL_API_URL || 'http://api:8080/api') // Server-side (Docker Service Name)
+    : (process.env.NEXT_PUBLIC_API_URL || '/api'); // Client-side (Relative via Nginx)
 
 export const api = {
     async getProducts(collectionSlug?: string): Promise<APIProduct[]> {
@@ -72,4 +72,17 @@ export const api = {
 // Helper to format price like the mock data "₴ 1,890"
 export const formatPrice = (price: number): string => {
     return `₴ ${price.toLocaleString('uk-UA')}`;
+};
+
+// Helper to get available sizes
+export const getAvailableSizes = (product: APIProduct): string[] => {
+    const sizes: string[] = [];
+    if (product.stock_xs > 0) sizes.push('XS');
+    if (product.stock_s > 0) sizes.push('S');
+    if (product.stock_m > 0) sizes.push('M');
+    if (product.stock_l > 0) sizes.push('L');
+    if (product.stock_xl > 0) sizes.push('XL');
+    if (product.stock_xxl > 0) sizes.push('XXL');
+    if (product.stock_os > 0) sizes.push('OS');
+    return sizes;
 };

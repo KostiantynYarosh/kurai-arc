@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
-import { api, formatPrice } from "@/services/api";
+import { api, formatPrice, getAvailableSizes } from "@/services/api";
 
 export default async function Archive() {
     // Fetch all products from API (no-store cache is set in service)
@@ -36,6 +36,7 @@ export default async function Archive() {
                             price={formatPrice(product.base_price)}
                             image={product.images && product.images.length > 0 ? product.images[0].url : undefined}
                             status={product.status as 'available' | 'archived'}
+                            availableSizes={getAvailableSizes(product)}
                         />
                     ))}
                 </div>

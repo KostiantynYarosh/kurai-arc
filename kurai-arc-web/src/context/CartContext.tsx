@@ -1,16 +1,18 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product } from '@/data/products';
+import { APIProduct } from '@/services/api';
 
-export interface CartItem extends Product {
+export interface CartItem extends APIProduct {
     selectedSize: string;
     quantity: number;
+    price: string; // Formatted price "₴ 1,000"
+    image: string; // Primary image URL
 }
 
 interface CartContextType {
     cartItems: CartItem[];
-    addToCart: (product: Product, size: string) => void;
+    addToCart: (product: APIProduct, size: string) => void;
     removeFromCart: (slug: string, size: string) => void;
     clearCart: () => void;
     cartCount: number;
@@ -42,7 +44,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('kurai_cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    const addToCart = (product: Product, size: string) => {
+    const addToCart = (product: APIProduct, size: string) => {
         setCartItems(prev => {
             const existingItem = prev.find(item => item.slug === product.slug && item.selectedSize === size);
             if (existingItem) {
@@ -52,7 +54,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                         : item
                 );
             }
-            return [...prev, { ...product, selectedSize: size, quantity: 1 }];
+            // Adapt APIProduct to CartItem
+            const price = `₴ ${product.base_price.toLocaleString('uk-UA')}`;
+            const image = product.images?.[0]?.url || '';
+            const cartItem: CartItem = {
+                ...product,
+                selectedSize: size,
+                quantity: 1,
+                price,
+                image
+            };
+            return [...prev, cartItem];
         });
         setIsCartOpen(true);
     };

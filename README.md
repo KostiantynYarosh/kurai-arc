@@ -28,6 +28,12 @@
 - **Containerization**: Docker & Docker Compose
 - **Image Hosting**: AWS S3
 - **Deployment**: Ready for cloud deployment (AWS, DigitalOcean, etc.)
+- **Reverse Proxy**: Nginx (routes traffic to frontend and API)
+
+### Nginx Configuration
+The project uses Nginx as a reverse proxy to handle incoming requests on port 80:
+- **Frontend**: Requests to `/` are routed to the Next.js container (internal port 3000).
+- **Backend**: Requests to `/api/` are routed to the Go API container (internal port 8080).
 
 ---
 
@@ -43,7 +49,7 @@
 1.  **Clone the repository**
     ```bash
     git clone https://github.com/yourusername/kurai-arc.git
-    cd kurai-arc-web
+    cd kurai-arc
     ```
 
 2.  **Environment Setup**
@@ -59,19 +65,37 @@
     DB_SSLMODE=require
     ```
 
-    **Frontend (`kurai-arc-web/.env.local`)**:
+    **Frontend for local development (`kurai-arc-web/.env.local`)**:
     ```ini
     NEXT_PUBLIC_API_URL=http://localhost:8080/api
     INTERNAL_API_URL=http://api:8080/api
     ```
 
-3.  **Run with Docker Compose (Recommended)**
-    This will start both the Go API and Next.js frontend in containers.
+3.  **Run with Docker Compose (Production/Staging)**
+    The default `docker-compose.yml` uses pre-built images from Docker Hub.
     ```bash
-    docker-compose up --build
+    docker-compose up -d
     ```
-    - Frontend: [http://localhost:3000](http://localhost:3000)
-    - Backend: [http://localhost:8080](http://localhost:8080)
+
+4. **Build from Source (Local Development)**
+    If you want to build the images locally (e.g. for development), use the local compose file:
+    ```bash
+    docker compose -f docker-compose.yml.local up --build
+    ```
+
+### Building & Pushing Images
+To build and push new images to Docker Hub (for `kot3qq/kurai-web` and `kot3qq/kurai-api`), you can use the provided script:
+
+**Windows (PowerShell)**:
+```powershell
+.\scripts\build_and_push.ps1
+```
+
+**Linux/Mac**:
+```bash
+# Ensure script is executable first: chmod +x scripts/build_and_push.sh
+./scripts/build_and_push.sh
+```
 
 ### Local Development (Manual)
 
@@ -84,10 +108,36 @@ go run cmd/api/main.go
 
 **Frontend**:
 ```bash
-cd kurai-arc
+cd kurai-arc-web
 npm install
 npm run dev
 ```
+
+---
+
+## SSL Configuration (HTTPS)
+
+To enable HTTPS, you must generate SSL certificates on the server using **Certbot** (Let's Encrypt).
+
+1.  **Stop Containers** (free up port 80):
+    ```bash
+    docker compose down
+    ```
+
+2.  **Run the Setup Script**:
+    Run `scripts/setup_ec2.sh` to install Certbot (if not already installed).
+
+3.  **Generate Certificates**:
+    Replace `your@email.com` and `yourdomain.com` with your actual details:
+    ```bash
+    sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com --email your@email.com --agree-tos --no-eff-email
+    ```
+
+4.  **Restart Containers**:
+    The `docker-compose.yml` is already configured to mount certificates from `/etc/letsencrypt/`.
+    ```bash
+    docker compose up -d
+    ```
 
 ---
 
@@ -107,6 +157,8 @@ npm run dev
 ```
 kurai.arc/
 ├── docker-compose.yml   # Orchestrates API and Web services
+├── nginx/               # Nginx Configuration
+│   └── default.conf     # Reverse proxy settings
 ├── kurai-arc-web/           # Next.js Frontend
 │   ├── src/app/         # App Router pages
 │   ├── src/components/  # React components

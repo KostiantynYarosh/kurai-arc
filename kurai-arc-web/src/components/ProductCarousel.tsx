@@ -96,7 +96,8 @@ export default function ProductCarousel({ images, productName, isArchived }: Pro
                                 src={image}
                                 alt={`${productName} - View ${index + 1}`}
                                 fill
-                                className="object-cover"
+                                draggable={false}
+                                className="object-cover select-none"
                                 priority={index === 1 || (!hasMultipleImages && index === 0)}
                             />
                         </div>
@@ -138,8 +139,8 @@ export default function ProductCarousel({ images, productName, isArchived }: Pro
                                 key={index}
                                 onClick={() => goToSlide(index)}
                                 className={`h-1 transition-all duration-300 rounded-full ${(images.length > 1 ? (displayIndex === index + 1) : true)
-                                        ? 'w-8 bg-accent-purple shadow-[0_0_10px_rgba(139,92,246,0.5)]'
-                                        : 'w-2 bg-warm-white/20 hover:bg-warm-white/40'
+                                    ? 'w-8 bg-accent-purple shadow-[0_0_10px_rgba(139,92,246,0.5)]'
+                                    : 'w-2 bg-warm-white/20 hover:bg-warm-white/40'
                                     }`}
                                 aria-label={`Go to slide ${index + 1}`}
                             />
