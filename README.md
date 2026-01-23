@@ -48,7 +48,7 @@ The project uses Nginx as a reverse proxy to handle incoming requests on port 80
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/kurai-arc.git
+    git clone https://github.com/KostiantynYarosh/kurai-arc.git
     cd kurai-arc
     ```
 
