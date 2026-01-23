@@ -11,7 +11,7 @@ services:
     restart: always
 
   api:
-    image: yourusername/kurai-api:latest
+    image: kot3qq/kurai-api:latest
     # Ports are now internal-only, accessed via Nginx
     # ports:
     #   - "8080:8080"
@@ -20,7 +20,7 @@ services:
     restart: always
 
   web:
-    image: yourusername/kurai-web:latest
+    image: kot3qq/kurai-web:latest
     # Ports are now internal-only, accessed via Nginx
     # ports:
     #   - "3000:3000"
