@@ -12,13 +12,13 @@
 
 ## Technology Stack
 
-### Backend (`kurai-arc-api`)
+### Backend (kurai-arc-api)
 - **Language**: [Go](https://go.dev/) (Golang) v1.25+
 - **Framework**: [Gin Web Framework](https://github.com/gin-gonic/gin)
 - **ORM**: [GORM](https://gorm.io/)
 - **Database**: PostgreSQL (Neon.tech)
 
-### Frontend (`kurai-arc-web`)
+### Frontend (kurai-arc-web)
 - **Framework**: [Next.js](https://nextjs.org/) v16 (App Router)
 - **Library**: React 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
