@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --background: #0A0A0B;
+    --foreground: #E8E6E3;
+    /* Primary Colors */
+    --color-deep-black: #0A0A0B;
+    --color-soft-black: #141417;
+    --color-dark-gray: #1C1C21;
+    --color-warm-white: #E8E6E3;
+    /* Accent Colors */
+    --color-accent-purple: #5739e0;
+    --color-accent-indigo: #6366F1;
+    --color-accent-red: #DC2626;
+    /* Secondary Colors */
+    --color-secondary-gray: #71717A;
+    --color-secondary-border: #27272A;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-deep-black: var(--color-deep-black);
+    --color-soft-black: var(--color-soft-black);
+    --color-dark-gray: var(--color-dark-gray);
+    --color-warm-white: var(--color-warm-white);
+    --color-accent-purple: var(--color-accent-purple);
+    --color-accent-indigo: var(--color-accent-indigo);
+    --color-accent-red: var(--color-accent-red);
+    --color-secondary-gray: var(--color-secondary-gray);
+    --color-secondary-border: var(--color-secondary-border);
+
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+
+        @layer base {
+            body {
+                background-color: var(--background);
+                color: var(--foreground);
+                @apply antialiased;
+            }
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: Arial, Helvetica, sans-serif;
+
+            @keyframes float {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(10px);
+                }
+            }
+
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+
+        }
+    }
+}
