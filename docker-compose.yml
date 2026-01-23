@@ -1,0 +1,27 @@
+services:
+  api:
+    container_name: kurai-api
+    build:
+      context: ./kurai-arc-api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./kurai-arc-api/.env
+    restart: always
+
+  web:
+    container_name: kurai-web
+    build:
+      context: ./kurai-arc
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Browser will access via localhost:8080
+      - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+      # Server (SSR) will access via internal docker network
+      - INTERNAL_API_URL=http://api:8080/api
+    depends_on:
+      - api
+    restart: always
