@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'kurai-arc.s3.us-east-1.amazonaws.com',
+        hostname: process.env.S3_HOSTNAME ?? 's3.eu-central-1.amazonaws.com',
         port: '',
         pathname: '/**',
       },
