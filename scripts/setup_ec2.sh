@@ -23,9 +23,8 @@ sudo systemctl enable docker
 # 6. Install Docker Compose (System-wide for sudo access)
 echo "Installing Docker Compose..."
 # Check latest version on: https://github.com/docker/compose/releases
-DOCKER_COMPOSE_VERSION="v2.24.5" 
 sudo mkdir -p /usr/local/lib/docker/cli-plugins/
-sudo curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
 sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
 echo "Setup complete! Please logout and log back in for docker group changes to take effect."

@@ -11,7 +11,9 @@ services:
     restart: always
 
   api:
-    image: yourusername/kurai-api:latest
+    build:
+      context: ./kurai-arc-api
+      dockerfile: Dockerfile
     # Ports are now internal-only, accessed via Nginx
     # ports:
     #   - "8080:8080"
@@ -20,7 +22,9 @@ services:
     restart: always
 
   web:
-    image: yourusername/kurai-web:latest
+    build:
+      context: ./kurai-arc-web
+      dockerfile: Dockerfile
     # Ports are now internal-only, accessed via Nginx
     # ports:
     #   - "3000:3000"

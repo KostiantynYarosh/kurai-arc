@@ -18,7 +18,7 @@
 - **ORM**: [GORM](https://gorm.io/)
 - **Database**: PostgreSQL (Neon.tech)
 
-### Frontend (`kurai-arc`)
+### Frontend (`kurai-arc-web`)
 - **Framework**: [Next.js](https://nextjs.org/) v16 (App Router)
 - **Library**: React 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
@@ -43,7 +43,7 @@
 1.  **Clone the repository**
     ```bash
     git clone https://github.com/yourusername/kurai-arc.git
-    cd kurai-arc
+    cd kurai-arc-web
     ```
 
 2.  **Environment Setup**
@@ -59,7 +59,7 @@
     DB_SSLMODE=require
     ```
 
-    **Frontend (`kurai-arc/.env.local`)**:
+    **Frontend (`kurai-arc-web/.env.local`)**:
     ```ini
     NEXT_PUBLIC_API_URL=http://localhost:8080/api
     INTERNAL_API_URL=http://api:8080/api
@@ -107,7 +107,7 @@ npm run dev
 ```
 kurai.arc/
 ├── docker-compose.yml   # Orchestrates API and Web services
-├── kurai-arc/           # Next.js Frontend
+├── kurai-arc-web/           # Next.js Frontend
 │   ├── src/app/         # App Router pages
 │   ├── src/components/  # React components
 │   └── ...
