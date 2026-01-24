@@ -20,7 +20,7 @@ export default function ProductCard({ slug, name, type, price, image, status, av
         : 'XS - XXL';
 
     return (
-        <div className={`group relative bg-dark-gray rounded-lg overflow-hidden border border-secondary-border transition-all duration-300 ${isArchived ? 'opacity-50 hover:opacity-100' : 'hover:border-accent-purple/50'}`}>
+        <div className={`group relative bg-dark-gray rounded-lg overflow-hidden border border-secondary-border transition-all duration-300 ${isArchived ? 'opacity-50 hover:opacity-100' : 'hover:border-accent-purple/50 hover:shadow-[0_0_20px_rgba(80,68,255,0.5)]'}`}>
             <div className="aspect-[3/4] bg-deep-black relative flex items-center justify-center">
                 {/* Product Image */}
                 {image ? (

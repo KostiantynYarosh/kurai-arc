@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import Navigation from "@/components/Navigation";
 import ProductCard from "@/components/ProductCard";
-import MoodGrid from "@/components/MoodGrid";
+
 import Footer from "@/components/Footer";
 import { api, formatPrice, getAvailableSizes } from "@/services/api";
 
@@ -46,7 +46,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <MoodGrid />
       <Footer />
     </main>
   );

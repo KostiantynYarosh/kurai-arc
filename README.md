@@ -74,7 +74,7 @@ The project uses Nginx as a reverse proxy to handle incoming requests on port 80
 3.  **Run with Docker Compose (Production/Staging)**
     The default `docker-compose.yml` uses pre-built images from Docker Hub.
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
 4. **Build from Source (Local Development)**

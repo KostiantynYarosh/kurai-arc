@@ -9,10 +9,21 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-row gap-8 md:gap-12 items-center text-center">
-                    {['INSTAGRAM', 'TELEGRAM', 'TIKTOK'].map((social) => (
-                        <span key={social} className="text-[11px] tracking-[0.2em] md:tracking-[0.15em] text-secondary-gray hover:text-accent-purple cursor-pointer transition-colors duration-300">
-                            {social}
-                        </span>
+                    {[
+                        { name: 'INSTAGRAM', url: 'https://instagram.com/kurai.arc' },
+                        { name: 'TELEGRAM', url: 'https://t.me/kurai_arc' },
+                        { name: 'TIKTOK', url: 'https://tiktok.com/@kurai.arc' },
+                        { name: 'EMAIL', url: 'mailto:kurai.arc@gmail.com' },
+                    ].map((social) => (
+                        <a
+                            key={social.name}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] tracking-[0.2em] md:tracking-[0.15em] text-secondary-gray hover:text-accent-purple cursor-pointer transition-colors duration-300"
+                        >
+                            {social.name}
+                        </a>
                     ))}
                 </div>
             </div>

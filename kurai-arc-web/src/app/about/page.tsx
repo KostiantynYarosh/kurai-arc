@@ -19,8 +19,8 @@ export default function About() {
                 <div className="space-y-16">
                     {/* Philosophy Section */}
                     <section className="border-l-2 border-accent-purple pl-6">
-                        <h2 className="text-2xl font-light mb-4 text-warm-white">Philosophy</h2>
-                        <p className="text-secondary-gray leading-relaxed mb-4">
+                        <h2 className="text-2xl font-light mb-1 text-warm-white">Philosophy</h2>
+                        <p className="text-secondary-gray leading-relaxed mb-1">
                             kurai.arc exists at the intersection of darkness and design. We craft garments that embrace the void—pieces that speak to those who find beauty in shadows and strength in subtlety.
                         </p>
                         <p className="text-secondary-gray leading-relaxed">
@@ -30,7 +30,7 @@ export default function About() {
 
                     {/* Design Approach */}
                     <section className="bg-soft-black border border-secondary-border rounded-lg p-8">
-                        <h2 className="text-2xl font-light mb-6 text-warm-white">Design Approach</h2>
+                        <h2 className="text-2xl font-light mb-3 text-warm-white">Design Approach</h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
                                 <h3 className="text-accent-purple text-sm tracking-widest mb-2 uppercase">Materials</h3>
@@ -61,18 +61,31 @@ export default function About() {
 
                     {/* Contact Section */}
                     <section className="border-l-2 border-accent-purple pl-6">
-                        <h2 className="text-2xl font-light mb-4 text-warm-white">Contact</h2>
+                        <h2 className="text-2xl font-light mb-1 text-warm-white">Contact</h2>
                         <div className="flex flex-col gap-2">
-                            <div className="text-sm">
-                                <span className="text-secondary-gray">email: </span>
-                                <a href="mailto:contact@kurai.arc" className="text-secondary-gray hover:text-accent-purple transition-colors">
-                                    contact@kurai.arc
-                                </a>
-                            </div>
+
                             <div className="text-sm">
                                 <span className="text-secondary-gray">telegram: </span>
                                 <a href="https://t.me/kurai_arc" className="text-secondary-gray hover:text-accent-purple transition-colors">
+                                    @kurai_arc
+                                </a>
+                            </div>
+                            <div className="text-sm">
+                                <span className="text-secondary-gray">instagram: </span>
+                                <a href="https://instagram.com/kurai.arc" className="text-secondary-gray hover:text-accent-purple transition-colors">
                                     @kurai.arc
+                                </a>
+                            </div>
+                            <div className="text-sm">
+                                <span className="text-secondary-gray">tiktok: </span>
+                                <a href="https://tiktok.com/@kurai.arc" className="text-secondary-gray hover:text-accent-purple transition-colors">
+                                    @kurai.arc
+                                </a>
+                            </div>
+                            <div className="text-sm">
+                                <span className="text-secondary-gray">email: </span>
+                                <a href="mailto:kurai.arc@gmail.com" className="text-secondary-gray hover:text-accent-purple transition-colors">
+                                    kurai.arc@gmail.com
                                 </a>
                             </div>
                         </div>
