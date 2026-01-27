@@ -39,7 +39,7 @@ The project uses Nginx as a reverse proxy to handle incoming requests on port 80
 
 ## Architecture
 
-![Kurai Arc Architecture](architecture.png)
+<img src="architecture.png" alt="Kurai Arc Architecture" width="600">
 
 ---
 
