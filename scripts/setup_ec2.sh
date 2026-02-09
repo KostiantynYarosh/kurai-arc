@@ -20,12 +20,10 @@ sudo systemctl enable docker
 
 
 
-# 5. Add user to the docker group
-sudo usermod -aG docker ec2-user
-
 # 6. Install Certbot (SSL)
 echo "Installing Certbot..."
 sudo dnf install certbot -y
+
 
 # 7. Install Docker Compose (System-wide for sudo access)
 echo "Installing Docker Compose..."
