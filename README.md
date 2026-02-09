@@ -5,6 +5,7 @@
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat&logo=postgresql)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&logo=docker)
+![Grafana](https://img.shields.io/badge/Grafana-Monitoring-F46800?style=flat&logo=grafana)
 
 **Kurai Arc** is a premium e-commerce platform designed for exclusive fashion drops. Built with **Go** backend and **Next.js** frontend.
 
@@ -29,6 +30,7 @@
 - **Image Hosting**: AWS S3
 - **Deployment**: Ready for cloud deployment (AWS, DigitalOcean, etc.)
 - **Reverse Proxy**: Nginx (routes traffic to frontend and API)
+- **Monitoring**: Grafana (Revenue & Inventory statistics)
 
 ### Nginx Configuration
 The project uses Nginx as a reverse proxy to handle incoming requests on port 80:
@@ -146,6 +148,41 @@ To enable HTTPS, you must generate SSL certificates on the server using **Certbo
     ```bash
     docker compose up -d
     ```
+
+---
+
+## Grafana Monitoring
+
+The project includes a pre-configured Grafana instance for monitoring sales and inventory.
+
+### 1. DNS Setup
+Add an **A Record** to your DNS provider:
+- **Host**: `grafana` (e.g., `grafana.kurai-arc.com`)
+- **Value**: Your server's public IP address
+
+### 2. Configuration
+Add the following to your `kurai-arc-api/.env` file to set your admin credentials:
+```ini
+GF_SECURITY_ADMIN_USER=your_secure_username
+GF_SECURITY_ADMIN_PASSWORD=your_secure_password
+```
+
+### 3. SSL for Subdomain
+Run Certbot to expand your certificate to cover the new subdomain:
+```bash
+# Stop containers first to free up port 80
+docker compose down
+
+# Expand certificate
+sudo certbot certonly --standalone -d kurai-arc.com -d www.kurai-arc.com -d grafana.kurai-arc.com --expand
+
+# Restart containers
+docker compose up -d
+```
+
+### 4. Access
+- **URL**: `https://grafana.kurai-arc.com`
+- **Dashboard**: "Kurai Arc Overview" (Automatically provisioned)
 
 ---
 
