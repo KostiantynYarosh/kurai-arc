@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&logo=docker)
 
 
-check it out yourself: <a href="https://kurai-arc.com/" target="_blank">kurai-arc.com</a>
+Сheck it out yourself: <a href="https://kurai-arc.com/" target="_blank">kurai-arc.com</a>
 <div align="center">
   <img src="https://github.com/user-attachments/assets/5db047b3-03d1-47b1-8c0b-75aff3183f6b" alt="Kurai Arc Preview" width="100%">
 </div>
