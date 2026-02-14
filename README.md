@@ -9,7 +9,7 @@
 
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/ad4ccc07-15ba-4862-a55c-9d841ecdca6b" controls width="100%"></video>
+  <img src="https://github.com/user-attachments/assets/591c2885-ae7d-4e64-a055-6d252d3e197c" alt="Kurai Arc Preview" width="100%">
 </div>
 
 **Kurai Arc** is a premium e-commerce platform designed for exclusive fashion drops. Built with **Go** backend and **Next.js** frontend.
