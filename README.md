@@ -7,11 +7,9 @@
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&logo=docker)
 
 
-
+<a href="https://kurai-arc.com/">kurai-arc.com</a>
 <div align="center">
   <img src="https://github.com/user-attachments/assets/5db047b3-03d1-47b1-8c0b-75aff3183f6b" alt="Kurai Arc Preview" width="100%">
-
-  <h3>🔗 <a href="https://kurai-arc.com/">kurai-arc.com</a></h3>
 </div>
 
 **Kurai Arc** is a premium e-commerce platform designed for exclusive fashion drops. Built with **Go** backend and **Next.js** frontend.
